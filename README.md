@@ -1,1 +1,1 @@
-# k8s-autoscaler-based-on-ram-usage
+# Kubernetes - horizontal pod autoscaler based on RAM usage
