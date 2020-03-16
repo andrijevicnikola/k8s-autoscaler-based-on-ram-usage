@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-memory
+spec:
+  selector:
+    matchLabels:
+      app: flaskMemory
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flaskMemory
+    spec:
+      containers:
+      - name: flask-memory
+        image: anikola/flask-memory
+        ports:
+        - containerPort: 5000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/do-loadbalancer-algorithm: "round_robin"
+  name: flask-memory
+spec:
+  type:  LoadBalancer
+  ports:
+  - name:  flask-memory
+    port:  5000       
+    targetPort:  5000  
+    nodePort: 30000  
+  selector:
+    app: flaskMemory
